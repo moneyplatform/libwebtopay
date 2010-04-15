@@ -273,7 +273,7 @@ class WebToPay {
                 'payamount'     => array(0,      false,  false,  true,  ''),
                 'paycurrency'   => array(0,      false,  false,  true,  ''),
                                                                          
-                'account_password' => array(0,   false,  true,   false, ''),
+                'account_password' => array(40,   false,  true,   false, ''),
             );
     }
 
