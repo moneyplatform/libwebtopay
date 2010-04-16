@@ -24,7 +24,7 @@ if ('callback' == $answer) {
                 'orderid'       => $request['orderid'],
                 'amount'        => $request['amount'],
                 'currency'      => $request['currency'],
-                'account_password' => $data['account_password'],
+                'sign_password' => $data['sign_password'],
             ));
 
         $meta['status'] = 'OK';

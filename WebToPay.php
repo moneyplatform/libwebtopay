@@ -273,7 +273,7 @@ class WebToPay {
                 'payamount'     => array(0,      false,  false,  true,  ''),
                 'paycurrency'   => array(0,      false,  false,  true,  ''),
                                                                          
-                'account_password' => array(40,   false,  true,   false, ''),
+                'sign_password' => array(255,    false,  true,   false, ''),
             );
     }
 
@@ -541,13 +541,18 @@ class WebToPay {
         $_response = self::checkResponseData($response, $user_data);
         self::$verified = 'RESPONSE';
 
-        if (function_exists('openssl_pkey_get_public')) {
+        echo '<pre>';
+        print_r($user_data);
+        echo '</pre>';
+        $user_data['sign_password'] = 'mz@evp.lt';
+
+        if (0 && function_exists('openssl_pkey_get_public')) {
             if (self::checkResponseCert($_response)) {
                 self::$verified = 'SS2 public.key';
                 return true;
             }
         }
-        else if (self::checkSS1($_response, $user_data['account_password'])) {
+        else if (self::checkSS1($_response, $user_data['sign_password'])) {
             self::$verified = 'SS1';
             return true;
         }
