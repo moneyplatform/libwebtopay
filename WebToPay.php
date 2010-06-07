@@ -256,23 +256,17 @@ class WebToPay {
                 'paytext'       => array(0,      false,  false,  true,  ''),
                 '_ss2'          => array(0,      true,   false,  true,  ''),
                 '_ss1'          => array(0,      false,  false,  true,  ''),
-                'transaction'   => array(255,    false,  false,  true,  ''),
-                'transaction2'  => array(255,    false,  false,  true,  ''),
                 'name'          => array(255,    false,  false,  true,  ''),
                 'surename'      => array(255,    false,  false,  true,  ''),
                 'status'        => array(255,    false,  false,  true,  ''),
                 'error'         => array(20,     false,  false,  true,  ''),
                 'test'          => array(1,      false,  false,  true,  '/^[01]$/'),
 
-                'siteurl'       => array(0,      false,  false,  true,  ''),
                 'sign'          => array(0,      false,  false,  true,  ''),
-                'pay_hash'      => array(0,      false,  false,  true,  ''),
-                'm_email_pay'   => array(0,      false,  false,  true,  ''),
                 'p_email'       => array(0,      false,  false,  true,  ''),
-                'type'          => array(0,      false,  false,  true,  ''),
                 'payamount'     => array(0,      false,  false,  true,  ''),
                 'paycurrency'   => array(0,      false,  false,  true,  ''),
-                                                                         
+
                 'sign_password' => array(255,    false,  true,   false, ''),
             );
     }
