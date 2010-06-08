@@ -535,12 +535,7 @@ class WebToPay {
         $_response = self::checkResponseData($response, $user_data);
         self::$verified = 'RESPONSE';
 
-        echo '<pre>';
-        print_r($user_data);
-        echo '</pre>';
-        $user_data['sign_password'] = 'mz@evp.lt';
-
-        if (0 && function_exists('openssl_pkey_get_public')) {
+        if (function_exists('openssl_pkey_get_public')) {
             if (self::checkResponseCert($_response)) {
                 self::$verified = 'SS2 public.key';
                 return true;
