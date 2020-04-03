@@ -3,7 +3,8 @@
 /**
  * Test for class WebToPay_RequestBuilder
  */
-class WebToPay_RequestBuilderTest extends PHPUnit\Framework\TestCase {
+class WebToPay_RequestBuilderTest extends PHPUnit\Framework\TestCase
+{
     /**
      * @var WebToPay_UrlBuilder
      */
@@ -22,7 +23,8 @@ class WebToPay_RequestBuilderTest extends PHPUnit\Framework\TestCase {
     /**
      * Sets up this test
      */
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->util = $this->getMock('WebToPay_Util', array('encodeSafeUrlBase64'));
         $this->urlBuilder = $this->getMockBuilder('WebToPay_UrlBuilder')
             ->disableOriginalConstructor()
@@ -36,7 +38,8 @@ class WebToPay_RequestBuilderTest extends PHPUnit\Framework\TestCase {
      *
      * @expectedException WebToPay_Exception_Validation
      */
-    public function testBuildRequestWithNoOrderId() {
+    public function testBuildRequestWithNoOrderId()
+    {
         $this->builder->buildRequest(array(
             'accepturl' => 'http://local.test/',
             'cancelurl' => 'http://local.test/',
@@ -49,7 +52,8 @@ class WebToPay_RequestBuilderTest extends PHPUnit\Framework\TestCase {
      *
      * @expectedException WebToPay_Exception_Validation
      */
-    public function testBuildRequestWithInvalidCurrency() {
+    public function testBuildRequestWithInvalidCurrency()
+    {
         $this->builder->buildRequest(array(
             'orderid' => 123,
             'accepturl' => 'http://local.test/',
@@ -62,14 +66,15 @@ class WebToPay_RequestBuilderTest extends PHPUnit\Framework\TestCase {
     /**
      * Tests buildRequest method
      */
-    public function testBuildRequest() {
+    public function testBuildRequest()
+    {
         $this->util
             ->expects($this->once())
             ->method('encodeSafeUrlBase64')
             ->with(
                 'orderid=123&accepturl=http%3A%2F%2Flocal.test%2F&cancelurl=http%3A%2F%2Flocal.test%2F'
-                    . '&callbackurl=http%3A%2F%2Flocal.test%2F&amount=100&some-other-parameter=abc'
-                    . '&version=1.6&projectid=123'
+                . '&callbackurl=http%3A%2F%2Flocal.test%2F&amount=100&some-other-parameter=abc'
+                . '&version=1.6&projectid=123'
             )
             ->will($this->returnValue('encoded'));
         $this->assertEquals(
@@ -88,7 +93,8 @@ class WebToPay_RequestBuilderTest extends PHPUnit\Framework\TestCase {
     /**
      * Tests buildRepeatRequest method
      */
-    public function testBuildRepeatRequest() {
+    public function testBuildRepeatRequest()
+    {
         $this->util
             ->expects($this->once())
             ->method('encodeSafeUrlBase64')

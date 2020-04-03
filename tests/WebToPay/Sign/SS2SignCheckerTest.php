@@ -64,7 +64,7 @@ WH/7s1IG3gHc08EcYjgZVeZrFKatRYXs8frLsnQPBeuZmQBFxBFUd8L+5vOZo7AP
     /**
      * Sets up this test
      */
-    public function setUp() {
+    public function setUp(): void {
         $this->util = $this->getMock('WebToPay_Util', array('decodeSafeUrlBase64'));
         $this->signChecker = new WebToPay_Sign_SS2SignChecker(self::$publicKey, $this->util);
     }
