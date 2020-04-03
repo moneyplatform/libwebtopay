@@ -3,7 +3,7 @@
 /**
  * Test for class WebToPay_RequestBuilder
  */
-class WebToPay_RequestBuilderTest extends PHPUnit_Framework_TestCase {
+class WebToPay_RequestBuilderTest extends PHPUnit\Framework\TestCase {
     /**
      * @var WebToPay_UrlBuilder
      */

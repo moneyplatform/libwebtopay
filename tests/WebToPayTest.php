@@ -3,7 +3,7 @@
 /**
  * Test for class WebToPay
  */
-class WebToPayTest extends PHPUnit_Framework_TestCase {
+class WebToPayTest extends PHPUnit\Framework\TestCase {
 
     public function testGetPaymentUrl() {
         $url = WebToPay::getPaymentUrl('LIT');

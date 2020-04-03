@@ -3,7 +3,7 @@
 /**
  * Test for class WebToPay_CallbackValidator
  */
-class WebToPay_CallbackValidatorTest extends PHPUnit_Framework_TestCase {
+class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase {
 
     /**
      * @var WebToPay_Sign_SignCheckerInterface

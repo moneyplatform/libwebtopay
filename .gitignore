@@ -1,0 +1,9 @@
+*.swp
+.cache
+.project
+/demo_shop/var/data/*.php
+.buildpath
+.settings
+/.idea
+/vendor
+.phpunit.result.cache

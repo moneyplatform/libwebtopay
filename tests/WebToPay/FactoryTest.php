@@ -3,7 +3,7 @@
 /**
  * Test for class WebToPay_Factory
  */
-class WebToPay_FactoryTest extends PHPUnit_Framework_TestCase {
+class WebToPay_FactoryTest extends PHPUnit\Framework\TestCase {
 
     /**
      * @var WebToPay_Factory
@@ -18,7 +18,7 @@ class WebToPay_FactoryTest extends PHPUnit_Framework_TestCase {
     /**
      * Sets up this test
      */
-    public function setUp() {
+    public function setUp(): void {
         $this->factory = new WebToPay_Factory(array(
             'projectId' => '123',
             'password' => 'abc',

@@ -3,7 +3,7 @@
 /**
  * Test for class WebToPay_Sign_SS1SignChecker
  */
-class WebToPay_Sign_SS1SignCheckerTest extends PHPUnit_Framework_TestCase {
+class WebToPay_Sign_SS1SignCheckerTest extends PHPUnit\Framework\TestCase {
 
     /**
      * @var WebToPay_Sign_SS1SignChecker

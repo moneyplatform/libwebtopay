@@ -3,7 +3,7 @@
 /**
  * Test for class WebToPay_Sign_SS2SignChecker
  */
-class WebToPay_Sign_SS2SignCheckerTest extends PHPUnit_Framework_TestCase {
+class WebToPay_Sign_SS2SignCheckerTest extends PHPUnit\Framework\TestCase {
 
     /**
      * Randomly generated private and public keys pair
