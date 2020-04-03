@@ -3,7 +3,8 @@
 /**
  * Interface for sign checker
  */
-interface WebToPay_Sign_SignCheckerInterface {
+interface WebToPay_Sign_SignCheckerInterface
+{
 
     /**
      * Checks whether request is signed properly

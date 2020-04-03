@@ -3,7 +3,8 @@
 /**
  * Test for class WebToPay_Sign_SS2SignChecker
  */
-class WebToPay_Sign_SS2SignCheckerTest extends PHPUnit\Framework\TestCase {
+class WebToPay_Sign_SS2SignCheckerTest extends PHPUnit\Framework\TestCase
+{
 
     /**
      * Randomly generated private and public keys pair
@@ -64,7 +65,8 @@ WH/7s1IG3gHc08EcYjgZVeZrFKatRYXs8frLsnQPBeuZmQBFxBFUd8L+5vOZo7AP
     /**
      * Sets up this test
      */
-    public function setUp(): void {
+    public function setUp(): void
+    {
         $this->util = $this->getMock('WebToPay_Util', array('decodeSafeUrlBase64'));
         $this->signChecker = new WebToPay_Sign_SS2SignChecker(self::$publicKey, $this->util);
     }
@@ -74,7 +76,8 @@ WH/7s1IG3gHc08EcYjgZVeZrFKatRYXs8frLsnQPBeuZmQBFxBFUd8L+5vOZo7AP
      *
      * @expectedException WebToPay_Exception_Callback
      */
-    public function testCheckSignWithoutInformation() {
+    public function testCheckSignWithoutInformation()
+    {
         $this->signChecker->checkSign(array(
             'projectid' => '123',
             'ss1' => 'asd',
@@ -85,7 +88,8 @@ WH/7s1IG3gHc08EcYjgZVeZrFKatRYXs8frLsnQPBeuZmQBFxBFUd8L+5vOZo7AP
     /**
      * Tests checkSign
      */
-    public function testCheckSign() {
+    public function testCheckSign()
+    {
         $ss2 = null;
         $privateKey = openssl_pkey_get_private(self::$privateKey);
         openssl_sign('encodedData', $ss2, $privateKey);
@@ -106,7 +110,8 @@ WH/7s1IG3gHc08EcYjgZVeZrFKatRYXs8frLsnQPBeuZmQBFxBFUd8L+5vOZo7AP
     /**
      * Tests checkSign with incorrect ss2
      */
-    public function testCheckSignWithBadSignature() {
+    public function testCheckSignWithBadSignature()
+    {
         $this->util
             ->expects($this->once())
             ->method('decodeSafeUrlBase64')

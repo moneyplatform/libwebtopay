@@ -3,7 +3,8 @@
 /**
  * Utility class
  */
-class WebToPay_Util {
+class WebToPay_Util
+{
 
     /**
      * Decodes url-safe-base64 encoded string
@@ -13,7 +14,8 @@ class WebToPay_Util {
      *
      * @return string
      */
-    public function decodeSafeUrlBase64($encodedText) {
+    public function decodeSafeUrlBase64($encodedText)
+    {
         return base64_decode(strtr($encodedText, array('-' => '+', '_' => '/')));
     }
 
@@ -25,7 +27,8 @@ class WebToPay_Util {
      *
      * @return string
      */
-    public function encodeSafeUrlBase64($text) {
+    public function encodeSafeUrlBase64($text)
+    {
         return strtr(base64_encode($text), array('+' => '-', '/' => '_'));
     }
 
@@ -36,7 +39,8 @@ class WebToPay_Util {
      *
      * @return array
      */
-    public function parseHttpQuery($query) {
+    public function parseHttpQuery($query)
+    {
         $params = array();
         parse_str($query, $params);
         return $params;

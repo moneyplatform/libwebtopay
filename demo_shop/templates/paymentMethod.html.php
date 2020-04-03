@@ -7,8 +7,9 @@
             <?php foreach ($group->getPaymentMethods() as $paymentMethod): ?>
                 <?php if ($paymentMethod->getLogoUrl()): ?>
                     <label>
-                        <input type="radio" class="radio" name="payment" value="<?php echo h($paymentMethod->getKey()); ?>" />
-                        <img src="<?php echo h($paymentMethod->getLogoUrl()); ?>" />
+                        <input type="radio" class="radio" name="payment"
+                               value="<?php echo h($paymentMethod->getKey()); ?>"/>
+                        <img src="<?php echo h($paymentMethod->getLogoUrl()); ?>"/>
                         <?php echo h($paymentMethod->getTitle()); ?>
                     </label>
                 <?php endif; ?>
@@ -17,7 +18,7 @@
     <?php endforeach; ?>
 
     <?php foreach ($post as $name => $value): ?>
-        <input type="hidden" name="<?php echo h($name); ?>" value="<?php echo h($value); ?>" />
+        <input type="hidden" name="<?php echo h($name); ?>" value="<?php echo h($value); ?>"/>
     <?php endforeach; ?>
-    <input type="submit" value="Buy" />
+    <input type="submit" value="Buy"/>
 </form>

@@ -3,7 +3,8 @@
 /**
  * Parses and validates callbacks
  */
-class WebToPay_CallbackValidator {
+class WebToPay_CallbackValidator
+{
 
     /**
      * @var WebToPay_Sign_SignCheckerInterface
@@ -23,11 +24,12 @@ class WebToPay_CallbackValidator {
     /**
      * Constructs object
      *
-     * @param integer                            $projectId
+     * @param integer $projectId
      * @param WebToPay_Sign_SignCheckerInterface $signer
-     * @param WebToPay_Util                      $util
+     * @param WebToPay_Util $util
      */
-    public function __construct($projectId, WebToPay_Sign_SignCheckerInterface $signer, WebToPay_Util $util) {
+    public function __construct($projectId, WebToPay_Sign_SignCheckerInterface $signer, WebToPay_Util $util)
+    {
         $this->signer = $signer;
         $this->util = $util;
         $this->projectId = $projectId;
@@ -44,7 +46,8 @@ class WebToPay_CallbackValidator {
      * @throws WebToPayException
      * @throws WebToPay_Exception_Callback
      */
-    public function validateAndParseData(array $requestData) {
+    public function validateAndParseData(array $requestData)
+    {
         if (!$this->signer->checkSign($requestData)) {
             throw new WebToPay_Exception_Callback('Invalid sign parameters, check $_GET length limit');
         }
@@ -64,7 +67,7 @@ class WebToPay_CallbackValidator {
             );
         }
 
-        if ((string) $request['projectid'] !== (string) $this->projectId) {
+        if ((string)$request['projectid'] !== (string)$this->projectId) {
             throw new WebToPay_Exception_Callback(
                 sprintf('Bad projectid: %s, should be: %s', $request['projectid'], $this->projectId),
                 WebToPayException::E_INVALID
@@ -91,7 +94,8 @@ class WebToPay_CallbackValidator {
      *
      * @throws WebToPayException
      */
-    public function checkExpectedFields(array $data, array $expected) {
+    public function checkExpectedFields(array $data, array $expected)
+    {
         foreach ($expected as $key => $value) {
             $passedValue = isset($data[$key]) ? $data[$key] : null;
             if ($passedValue != $value) {

@@ -3,7 +3,8 @@
 /**
  * Test for class WebToPay_Sign_SS1SignChecker
  */
-class WebToPay_Sign_SS1SignCheckerTest extends PHPUnit\Framework\TestCase {
+class WebToPay_Sign_SS1SignCheckerTest extends PHPUnit\Framework\TestCase
+{
 
     /**
      * @var WebToPay_Sign_SS1SignChecker
@@ -13,7 +14,8 @@ class WebToPay_Sign_SS1SignCheckerTest extends PHPUnit\Framework\TestCase {
     /**
      * Sets up this test
      */
-    public function setUp(): void {
+    public function setUp(): void
+    {
         $this->signChecker = new WebToPay_Sign_SS1SignChecker('secret');
     }
 
@@ -22,7 +24,8 @@ class WebToPay_Sign_SS1SignCheckerTest extends PHPUnit\Framework\TestCase {
      *
      * @expectedException WebToPay_Exception_Callback
      */
-    public function testCheckSignWithoutInformation() {
+    public function testCheckSignWithoutInformation()
+    {
         $this->signChecker->checkSign(array(
             'projectid' => '123',
             'ss1' => 'asd',
@@ -33,7 +36,8 @@ class WebToPay_Sign_SS1SignCheckerTest extends PHPUnit\Framework\TestCase {
     /**
      * Tests checkSign
      */
-    public function testCheckSign() {
+    public function testCheckSign()
+    {
         $this->assertTrue($this->signChecker->checkSign(array(
             'data' => 'encodedData',
             'ss1' => md5('encodedDatasecret'),

@@ -3,7 +3,8 @@
 /**
  * Base exception class for all exceptions in this library
  */
-class WebToPayException extends Exception {
+class WebToPayException extends Exception
+{
 
     /**
      * Missing field.
@@ -54,7 +55,7 @@ class WebToPayException extends Exception {
      * Errors in remote service - it returns some invalid data
      */
     const E_SERVICE = 10;
-    
+
     /**
      * Deprecated usage errors
      */
@@ -70,7 +71,8 @@ class WebToPayException extends Exception {
      *
      * @param string $fieldName
      */
-    public function setField($fieldName) {
+    public function setField($fieldName)
+    {
         $this->fieldName = $fieldName;
     }
 
@@ -79,7 +81,8 @@ class WebToPayException extends Exception {
      *
      * @return string|boolean false
      */
-    public function getField() {
+    public function getField()
+    {
         return $this->fieldName;
     }
 }

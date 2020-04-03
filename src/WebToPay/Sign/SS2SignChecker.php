@@ -3,7 +3,8 @@
 /**
  * Checks SS2 signature. Depends on SSL functions
  */
-class WebToPay_Sign_SS2SignChecker implements WebToPay_Sign_SignCheckerInterface {
+class WebToPay_Sign_SS2SignChecker implements WebToPay_Sign_SignCheckerInterface
+{
 
     /**
      * @var string
@@ -18,10 +19,11 @@ class WebToPay_Sign_SS2SignChecker implements WebToPay_Sign_SignCheckerInterface
     /**
      * Constructs object
      *
-     * @param string        $publicKey
+     * @param string $publicKey
      * @param WebToPay_Util $util
      */
-    public function __construct($publicKey, WebToPay_Util $util) {
+    public function __construct($publicKey, WebToPay_Util $util)
+    {
         $this->publicKey = $publicKey;
         $this->util = $util;
     }
@@ -35,7 +37,8 @@ class WebToPay_Sign_SS2SignChecker implements WebToPay_Sign_SignCheckerInterface
      *
      * @throws WebToPay_Exception_Callback
      */
-    public function checkSign(array $request) {
+    public function checkSign(array $request)
+    {
         if (!isset($request['data']) || !isset($request['ss2'])) {
             throw new WebToPay_Exception_Callback('Not enough parameters in callback. Possible version mismatch');
         }

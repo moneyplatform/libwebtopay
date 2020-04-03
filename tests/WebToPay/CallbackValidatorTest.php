@@ -3,7 +3,8 @@
 /**
  * Test for class WebToPay_CallbackValidator
  */
-class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase {
+class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase
+{
 
     /**
      * @var WebToPay_Sign_SignCheckerInterface
@@ -23,7 +24,8 @@ class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase {
     /**
      * Sets up this test
      */
-    public function setUp(): void {
+    public function setUp(): void
+    {
         $this->signer = $this->getMock('WebToPay_Sign_SignCheckerInterface');
         $this->util = $this->getMock('WebToPay_Util', array('decodeSafeUrlBase64', 'parseHttpQuery'));
         $this->validator = new WebToPay_CallbackValidator(123, $this->signer, $this->util);
@@ -34,7 +36,8 @@ class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase {
      *
      * @expectedException WebToPay_Exception_Callback
      */
-    public function testValidateAndParseDataWithInvalidSign() {
+    public function testValidateAndParseDataWithInvalidSign()
+    {
         $request = array('data' => 'abcdef', 'sign' => 'qwerty');
 
         $this->signer->expects($this->once())->method('checkSign')->with($request)->will($this->returnValue(false));
@@ -48,7 +51,8 @@ class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase {
      *
      * @expectedException WebToPay_Exception_Callback
      */
-    public function testValidateAndParseDataWithInvalidProject() {
+    public function testValidateAndParseDataWithInvalidProject()
+    {
         $request = array('data' => 'abcdef', 'sign' => 'qwerty');
         $parsed = array('projectid' => 456);
 
@@ -62,7 +66,8 @@ class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase {
     /**
      * Tests validateAndParseData method
      */
-    public function testValidateAndParseData() {
+    public function testValidateAndParseData()
+    {
         $request = array('data' => 'abcdef', 'sign' => 'qwerty');
         $parsed = array('projectid' => 123, 'someparam' => 'qwerty123', 'type' => 'micro');
 
@@ -77,7 +82,8 @@ class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase {
      * Tests checkExpectedFields method - it should throw exception (only) when some valus are not as expected or
      * unspecified
      */
-    public function testCheckExpectedFields() {
+    public function testCheckExpectedFields()
+    {
         $exception = null;
         try {
             $this->validator->checkExpectedFields(
@@ -89,7 +95,7 @@ class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase {
                     'def' => 456,
                 )
             );
-        }  catch (WebToPayException $exception) {
+        } catch (WebToPayException $exception) {
             // empty block, $exception variable is set to exception object
         }
         $this->assertNull($exception);

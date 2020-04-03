@@ -3,7 +3,8 @@
 /**
  * Sends answer to SMS payment if it was not provided with response to callback
  */
-class WebToPay_SmsAnswerSender {
+class WebToPay_SmsAnswerSender
+{
 
     /**
      * @var string
@@ -23,7 +24,7 @@ class WebToPay_SmsAnswerSender {
     /**
      * Constructs object
      *
-     * @param string             $password
+     * @param string $password
      * @param WebToPay_WebClient $webClient
      * @param WebToPay_UrlBuilder $urlBuilder
      */
@@ -31,7 +32,8 @@ class WebToPay_SmsAnswerSender {
         $password,
         WebToPay_WebClient $webClient,
         WebToPay_UrlBuilder $urlBuilder
-    ) {
+    )
+    {
         $this->password = $password;
         $this->webClient = $webClient;
         $this->urlBuilder = $urlBuilder;
@@ -42,11 +44,12 @@ class WebToPay_SmsAnswerSender {
      * when responding to callback
      *
      * @param integer $smsId
-     * @param string  $text
+     * @param string $text
      *
      * @throws WebToPayException
      */
-    public function sendAnswer($smsId, $text) {
+    public function sendAnswer($smsId, $text)
+    {
         $content = $this->webClient->get($this->urlBuilder->buildForSmsAnswer(), array(
             'id' => $smsId,
             'msg' => $text,

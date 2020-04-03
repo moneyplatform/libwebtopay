@@ -3,7 +3,8 @@
 /**
  * Class to hold information about payment method
  */
-class WebToPay_PaymentMethod {
+class WebToPay_PaymentMethod
+{
     /**
      * Assigned key for this payment method
      *
@@ -45,20 +46,21 @@ class WebToPay_PaymentMethod {
     /**
      * Constructs object
      *
-     * @param string  $key
+     * @param string $key
      * @param integer $minAmount
      * @param integer $maxAmount
-     * @param string  $currency
-     * @param array   $logoList
-     * @param array   $titleTranslations
-     * @param string  $defaultLanguage
-     * @param bool    $isIban
-     * @param string  $baseCurrency
+     * @param string $currency
+     * @param array $logoList
+     * @param array $titleTranslations
+     * @param string $defaultLanguage
+     * @param bool $isIban
+     * @param string $baseCurrency
      */
     public function __construct(
         $key, $minAmount, $maxAmount, $currency, array $logoList = array(), array $titleTranslations = array(),
         $defaultLanguage = 'lt', $isIban = false, $baseCurrency = null
-    ) {
+    )
+    {
         $this->key = $key;
         $this->minAmount = $minAmount;
         $this->maxAmount = $maxAmount;
@@ -71,6 +73,16 @@ class WebToPay_PaymentMethod {
     }
 
     /**
+     * Gets default language for titles
+     *
+     * @return string
+     */
+    public function getDefaultLanguage()
+    {
+        return $this->defaultLanguage;
+    }
+
+    /**
      * Sets default language for titles.
      * Returns itself for fluent interface
      *
@@ -78,18 +90,10 @@ class WebToPay_PaymentMethod {
      *
      * @return WebToPay_PaymentMethod
      */
-    public function setDefaultLanguage($language) {
+    public function setDefaultLanguage($language)
+    {
         $this->defaultLanguage = $language;
         return $this;
-    }
-
-    /**
-     * Gets default language for titles
-     *
-     * @return string
-     */
-    public function getDefaultLanguage() {
-        return $this->defaultLanguage;
     }
 
     /**
@@ -97,7 +101,8 @@ class WebToPay_PaymentMethod {
      *
      * @return string
      */
-    public function getKey() {
+    public function getKey()
+    {
         return $this->key;
     }
 
@@ -109,7 +114,8 @@ class WebToPay_PaymentMethod {
      *
      * @return string|null
      */
-    public function getLogoUrl($languageCode = null) {
+    public function getLogoUrl($languageCode = null)
+    {
         if ($languageCode !== null && isset($this->logoList[$languageCode])) {
             return $this->logoList[$languageCode];
         } elseif (isset($this->logoList[$this->defaultLanguage])) {
@@ -126,7 +132,8 @@ class WebToPay_PaymentMethod {
      *
      * @return string
      */
-    public function getTitle($languageCode = null) {
+    public function getTitle($languageCode = null)
+    {
         if ($languageCode !== null && isset($this->titleTranslations[$languageCode])) {
             return $this->titleTranslations[$languageCode];
         } elseif (isset($this->titleTranslations[$this->defaultLanguage])) {
@@ -141,17 +148,18 @@ class WebToPay_PaymentMethod {
      * Throws exception if currency checked is not the one, for which payment method list was downloaded.
      *
      * @param integer $amount
-     * @param string  $currency
+     * @param string $currency
      *
      * @return boolean
      *
      * @throws WebToPayException
      */
-    public function isAvailableForAmount($amount, $currency) {
+    public function isAvailableForAmount($amount, $currency)
+    {
         if ($this->currency !== $currency) {
             throw new WebToPayException(
                 'Currencies does not match. You have to get payment types for the currency you are checking. Given currency: '
-                    . $currency . ', available currency: ' . $this->currency
+                . $currency . ', available currency: ' . $this->currency
             );
         }
         return (
@@ -165,7 +173,8 @@ class WebToPay_PaymentMethod {
      *
      * @return string
      */
-    public function getMinAmountAsString() {
+    public function getMinAmountAsString()
+    {
         return $this->minAmount === null ? '' : ($this->minAmount . ' ' . $this->currency);
     }
 
@@ -174,17 +183,9 @@ class WebToPay_PaymentMethod {
      *
      * @return string
      */
-    public function getMaxAmountAsString() {
+    public function getMaxAmountAsString()
+    {
         return $this->maxAmount === null ? '' : ($this->maxAmount . ' ' . $this->currency);
-    }
-
-    /**
-     * Set if this method returns IBAN number after payment
-     *
-     * @param boolean $isIban
-     */
-    public function setIsIban($isIban) {
-        $this->isIban = $isIban == 1;
     }
 
     /**
@@ -192,18 +193,19 @@ class WebToPay_PaymentMethod {
      *
      * @return bool
      */
-    public function isIban() {
+    public function isIban()
+    {
         return $this->isIban;
     }
 
     /**
-     * Setter of BaseCurrency
+     * Set if this method returns IBAN number after payment
      *
-     * @param string $baseCurrency
+     * @param boolean $isIban
      */
-    public function setBaseCurrency($baseCurrency)
+    public function setIsIban($isIban)
     {
-        $this->baseCurrency = $baseCurrency;
+        $this->isIban = $isIban == 1;
     }
 
     /**
@@ -214,5 +216,15 @@ class WebToPay_PaymentMethod {
     public function getBaseCurrency()
     {
         return $this->baseCurrency;
+    }
+
+    /**
+     * Setter of BaseCurrency
+     *
+     * @param string $baseCurrency
+     */
+    public function setBaseCurrency($baseCurrency)
+    {
+        $this->baseCurrency = $baseCurrency;
     }
 }
