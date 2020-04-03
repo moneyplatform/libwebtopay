@@ -941,29 +941,7 @@ class WebToPay_Util {
     public function parseHttpQuery($query) {
         $params = array();
         parse_str($query, $params);
-        if (get_magic_quotes_gpc()) {
-            $params = $this->stripSlashesRecursively($params);
-        }
         return $params;
-    }
-
-    /**
-     * Strips slashes recursively, so this method can be used on arrays with more than one level
-     *
-     * @param mixed $data
-     *
-     * @return mixed
-     */
-    protected function stripSlashesRecursively($data) {
-        if (is_array($data)) {
-            $result = array();
-            foreach ($data as $key => $value) {
-                $result[stripslashes($key)] = $this->stripSlashesRecursively($value);
-            }
-            return $result;
-        } else {
-            return stripslashes($data);
-        }
     }
 }
 

@@ -4,8 +4,7 @@ require_once 'includes/helpers.php';
 require_once 'includes/config.php';
 require_once '../src/includes.php';
 
-$post = removeQuotes($_POST);
-$id = $post['id'];
+$id = $_POST['id'];
 if (!isset($shopItems[$id])) {
     redirect_to(get_address());
 }

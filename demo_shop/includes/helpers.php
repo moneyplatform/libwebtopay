@@ -25,19 +25,6 @@ function h($var) {
     return htmlspecialchars($var, ENT_QUOTES, 'UTF-8');
 }
 
-function removeQuotes($post) {
-    if (get_magic_quotes_gpc()) {
-        foreach ($post as &$var) {
-            if (is_array($var)) {
-                $var = removeQuotes($var);
-            } else {
-                $var = stripslashes($var);
-            }
-        }
-    }
-    return $post;
-}
-
 function get_address($scriptName = '') {
     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https' : 'http';
     return $protocol.'://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . '/' . $scriptName;
