@@ -21,6 +21,8 @@
         "phpunit/phpunit": "^5.0"
     },
     "autoload": {
-        "classmap": ["src/"]
-    }
+        "psr-4": {
+            "WebToPay\\": "src/"
+        }
+   }
 }
