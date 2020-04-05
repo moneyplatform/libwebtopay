@@ -51,7 +51,7 @@ class WebToPay_PaymentMethodList
     public function __construct($projectId, $currency, $defaultLanguage = 'lt', $amount = null)
     {
         $this->projectId = $projectId;
-        $this->countries = array();
+        $this->countries = [];
         $this->defaultLanguage = $defaultLanguage;
         $this->currency = $currency;
         $this->amount = $amount;
@@ -194,7 +194,7 @@ class WebToPay_PaymentMethodList
     public function fromXmlNode($xmlNode)
     {
         foreach ($xmlNode->country as $countryNode) {
-            $titleTranslations = array();
+            $titleTranslations = [];
             foreach ($countryNode->title as $titleNode) {
                 $titleTranslations[(string)$titleNode->attributes()->language] = (string)$titleNode;
             }
@@ -211,7 +211,7 @@ class WebToPay_PaymentMethodList
      *
      * @return WebToPay_PaymentMethodCountry
      */
-    protected function createCountry($countryCode, array $titleTranslations = array())
+    protected function createCountry($countryCode, array $titleTranslations = [])
     {
         return new WebToPay_PaymentMethodCountry($countryCode, $titleTranslations, $this->defaultLanguage);
     }

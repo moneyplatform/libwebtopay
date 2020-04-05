@@ -19,7 +19,7 @@ $methods = WebToPay::getPaymentMethodList($config['projectid'], $currency)
     ->setDefaultLanguage('en');              // set default language for titles (default: lt)
 
 
-echo template('paymentMethod.html', array(
+echo template('paymentMethod.html', [
     'methods' => $methods,
     'post' => $_POST,
-));
+]);

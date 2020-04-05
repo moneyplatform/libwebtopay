@@ -50,11 +50,11 @@ class WebToPay_UtilTest extends PHPUnit\Framework\TestCase
      */
     public function testEncodeAndDecodeAreCompatible()
     {
-        $values = array(
+        $values = [
             'Some long string with UTF-8 ąččėę проверка',
             "Some binary symbols \0\1\3\xFF\xE0\xD0\xC0\xB0\xA0\x90\x10\x0A ",
             'Some other symbols %=?/-_)22Wq',
-        );
+        ];
         foreach ($values as $text) {
             $this->assertEquals(
                 $text,
@@ -69,11 +69,11 @@ class WebToPay_UtilTest extends PHPUnit\Framework\TestCase
     public function testParseHttpQuery()
     {
         $this->assertEquals(
-            array(
+            [
                 'param1' => 'some string',
                 'param2' => 'special symbols !!%(@_-+/=',
                 'param3' => 'slashes \\\'"',
-            ),
+            ],
             $this->util->parseHttpQuery(
                 'param1=some+string&param2=special+symbols+%21%21%25%28%40_-%2B%2F%3D&param3=slashes+%5C%27%22'
             )

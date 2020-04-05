@@ -80,7 +80,7 @@ class WebToPay
         unset($data['sign_password']);
         unset($data['projectid']);
 
-        $factory = new WebToPay_Factory(array('projectId' => $projectId, 'password' => $password));
+        $factory = new WebToPay_Factory(['projectId' => $projectId, 'password' => $password]);
         $requestBuilder = $factory->getRequestBuilder();
         return $requestBuilder->buildRequest($data);
     }
@@ -107,7 +107,7 @@ class WebToPay
         unset($data['sign_password']);
         unset($data['projectid']);
 
-        $factory = new WebToPay_Factory(array('projectId' => $projectId, 'password' => $password));
+        $factory = new WebToPay_Factory(['projectId' => $projectId, 'password' => $password]);
         $url = $factory->getRequestBuilder()
             ->buildRequestUrlFromData($data);
 
@@ -151,7 +151,7 @@ class WebToPay
         $projectId = $data['projectid'];
         $orderId = $data['orderid'];
 
-        $factory = new WebToPay_Factory(array('projectId' => $projectId, 'password' => $password));
+        $factory = new WebToPay_Factory(['projectId' => $projectId, 'password' => $password]);
         $requestBuilder = $factory->getRequestBuilder();
         return $requestBuilder->buildRepeatRequest($orderId);
     }
@@ -164,7 +164,7 @@ class WebToPay
      */
     public static function getPaymentUrl($language = 'LIT')
     {
-        return (in_array($language, array('lt', 'lit', 'LIT')))
+        return (in_array($language, ['lt', 'lit', 'LIT']))
             ? self::PAY_URL
             : self::PAYSERA_PAY_URL;
     }
@@ -190,7 +190,7 @@ class WebToPay
      * @throws WebToPayException
      * @deprecated use validateAndParseData() and check status code yourself
      */
-    public static function checkResponse($query, $userData = array())
+    public static function checkResponse($query, $userData = [])
     {
         $projectId = isset($userData['projectid']) ? $userData['projectid'] : null;
         $password = isset($userData['sign_password']) ? $userData['sign_password'] : null;
@@ -228,7 +228,7 @@ class WebToPay
      */
     public static function validateAndParseData(array $query, $projectId, $password)
     {
-        $factory = new WebToPay_Factory(array('projectId' => $projectId, 'password' => $password));
+        $factory = new WebToPay_Factory(['projectId' => $projectId, 'password' => $password]);
         $validator = $factory->getCallbackValidator();
         $data = $validator->validateAndParseData($query);
         return $data;
@@ -248,13 +248,13 @@ class WebToPay
             return;
         }
 
-        $logline = array(
+        $logline = [
             $type,
             isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '-',
             date('[Y-m-d H:i:s O]'),
             'v' . self::VERSION . ':',
-            $msg
-        );
+            $msg,
+        ];
 
         $logline = implode(' ', $logline) . "\n";
         fwrite($fp, $logline);
@@ -288,7 +288,7 @@ class WebToPay
 
         try {
 
-            $factory = new WebToPay_Factory(array('password' => $password));
+            $factory = new WebToPay_Factory(['password' => $password]);
             $factory->getSmsAnswerSender()->sendAnswer($smsId, $text);
 
             if ($logFile) {
@@ -316,7 +316,7 @@ class WebToPay
      */
     public static function getPaymentMethodList($projectId, $currency = 'EUR')
     {
-        $factory = new WebToPay_Factory(array('projectId' => $projectId));
+        $factory = new WebToPay_Factory(['projectId' => $projectId]);
         return $factory->getPaymentMethodListProvider()->getPaymentMethodList($currency);
     }
 }

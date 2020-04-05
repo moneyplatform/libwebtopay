@@ -41,12 +41,12 @@ class WebToPay_PaymentMethodGroup
      * @param array $translations
      * @param string $defaultLanguage
      */
-    public function __construct($groupKey, array $translations = array(), $defaultLanguage = 'lt')
+    public function __construct($groupKey, array $translations = [], $defaultLanguage = 'lt')
     {
         $this->groupKey = $groupKey;
         $this->translations = $translations;
         $this->defaultLanguage = $defaultLanguage;
-        $this->paymentMethods = array();
+        $this->paymentMethods = [];
     }
 
     /**
@@ -197,11 +197,11 @@ class WebToPay_PaymentMethodGroup
     {
         foreach ($groupNode->payment_type as $paymentTypeNode) {
             $key = (string)$paymentTypeNode->attributes()->key;
-            $titleTranslations = array();
+            $titleTranslations = [];
             foreach ($paymentTypeNode->title as $titleNode) {
                 $titleTranslations[(string)$titleNode->attributes()->language] = (string)$titleNode;
             }
-            $logoTranslations = array();
+            $logoTranslations = [];
             foreach ($paymentTypeNode->logo_url as $logoNode) {
                 if ((string)$logoNode !== '') {
                     $logoTranslations[(string)$logoNode->attributes()->language] = (string)$logoNode;
@@ -248,7 +248,7 @@ class WebToPay_PaymentMethodGroup
      * @return WebToPay_PaymentMethod
      */
     protected function createPaymentMethod(
-        $key, $minAmount, $maxAmount, $currency, array $logoList = array(), array $titleTranslations = array(),
+        $key, $minAmount, $maxAmount, $currency, array $logoList = [], array $titleTranslations = [],
         $isIban = false, $baseCurrency = null
     )
     {

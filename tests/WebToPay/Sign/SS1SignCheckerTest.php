@@ -26,11 +26,11 @@ class WebToPay_Sign_SS1SignCheckerTest extends PHPUnit\Framework\TestCase
      */
     public function testCheckSignWithoutInformation()
     {
-        $this->signChecker->checkSign(array(
+        $this->signChecker->checkSign([
             'projectid' => '123',
             'ss1' => 'asd',
             'ss2' => 'zxc',
-        ));
+        ]);
     }
 
     /**
@@ -38,15 +38,15 @@ class WebToPay_Sign_SS1SignCheckerTest extends PHPUnit\Framework\TestCase
      */
     public function testCheckSign()
     {
-        $this->assertTrue($this->signChecker->checkSign(array(
+        $this->assertTrue($this->signChecker->checkSign([
             'data' => 'encodedData',
             'ss1' => md5('encodedDatasecret'),
             'ss2' => 'bad-ss2',
-        )));
-        $this->assertFalse($this->signChecker->checkSign(array(
+        ]));
+        $this->assertFalse($this->signChecker->checkSign([
             'data' => 'encodedData',
             'ss1' => md5('encodedDatasecret1'),
             'ss2' => 'bad-ss2',
-        )));
+        ]));
     }
 }

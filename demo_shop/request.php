@@ -13,14 +13,14 @@ $item = $shopItems[$id];
 $data = load_data();
 $orderid = isset($data['orderid']) ? $data['orderid'] + 1 : 1;
 
-$order = array(
+$order = [
     'amount' => $item['price'],
     'currency' => $item['currency'],
     'orderid' => $orderid,
-);
+];
 
 $data['orderid'] = $orderid;
-$data['orders'][$orderid] = array('item' => $item, 'status' => 'new', 'additionalData' => $post);
+$data['orders'][$orderid] = ['item' => $item, 'status' => 'new', 'additionalData' => $post];
 save_data($data);
 
 // this method builds request and sends Location header for redirecting to payment site

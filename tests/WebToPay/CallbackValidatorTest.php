@@ -27,7 +27,7 @@ class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase
     public function setUp(): void
     {
         $this->signer = $this->getMock('WebToPay_Sign_SignCheckerInterface');
-        $this->util = $this->getMock('WebToPay_Util', array('decodeSafeUrlBase64', 'parseHttpQuery'));
+        $this->util = $this->getMock('WebToPay_Util', ['decodeSafeUrlBase64', 'parseHttpQuery']);
         $this->validator = new WebToPay_CallbackValidator(123, $this->signer, $this->util);
     }
 
@@ -38,7 +38,7 @@ class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase
      */
     public function testValidateAndParseDataWithInvalidSign()
     {
-        $request = array('data' => 'abcdef', 'sign' => 'qwerty');
+        $request = ['data' => 'abcdef', 'sign' => 'qwerty'];
 
         $this->signer->expects($this->once())->method('checkSign')->with($request)->will($this->returnValue(false));
         $this->util->expects($this->never())->method($this->anything());
@@ -53,8 +53,8 @@ class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase
      */
     public function testValidateAndParseDataWithInvalidProject()
     {
-        $request = array('data' => 'abcdef', 'sign' => 'qwerty');
-        $parsed = array('projectid' => 456);
+        $request = ['data' => 'abcdef', 'sign' => 'qwerty'];
+        $parsed = ['projectid' => 456];
 
         $this->signer->expects($this->once())->method('checkSign')->with($request)->will($this->returnValue(true));
         $this->util->expects($this->at(0))->method('decodeSafeUrlBase64')->with('abcdef')->will($this->returnValue('zxc'));
@@ -68,8 +68,8 @@ class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase
      */
     public function testValidateAndParseData()
     {
-        $request = array('data' => 'abcdef', 'sign' => 'qwerty');
-        $parsed = array('projectid' => 123, 'someparam' => 'qwerty123', 'type' => 'micro');
+        $request = ['data' => 'abcdef', 'sign' => 'qwerty'];
+        $parsed = ['projectid' => 123, 'someparam' => 'qwerty123', 'type' => 'micro'];
 
         $this->signer->expects($this->once())->method('checkSign')->with($request)->will($this->returnValue(true));
         $this->util->expects($this->at(0))->method('decodeSafeUrlBase64')->with('abcdef')->will($this->returnValue('zxc'));
@@ -87,13 +87,13 @@ class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase
         $exception = null;
         try {
             $this->validator->checkExpectedFields(
-                array(
+                [
                     'abc' => '123',
                     'def' => '456',
-                ),
-                array(
+                ],
+                [
                     'def' => 456,
-                )
+                ]
             );
         } catch (WebToPayException $exception) {
             // empty block, $exception variable is set to exception object
@@ -103,14 +103,14 @@ class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase
         $exception = null;
         try {
             $this->validator->checkExpectedFields(
-                array(
+                [
                     'abc' => '123',
                     'def' => '456',
-                ),
-                array(
+                ],
+                [
                     'abc' => '123',
                     'non-existing' => '789',
-                )
+                ]
             );
         } catch (WebToPayException $exception) {
             // empty block, $exception variable is set to exception object
@@ -120,13 +120,13 @@ class WebToPay_CallbackValidatorTest extends PHPUnit\Framework\TestCase
         $exception = null;
         try {
             $this->validator->checkExpectedFields(
-                array(
+                [
                     'abc' => '123',
                     'def' => '456',
-                ),
-                array(
+                ],
+                [
                     'abc' => '1234',
-                )
+                ]
             );
         } catch (WebToPayException $exception) {
             // empty block, $exception variable is set to exception object

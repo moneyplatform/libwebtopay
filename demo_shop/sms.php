@@ -11,8 +11,8 @@ try {
 }
 
 $data = load_data();
-$data['sms'][] = array(
+$data['sms'][] = [
     '_GET' => $_GET,
     'parsedData' => $parsedData,
-);
+];
 save_data($data);

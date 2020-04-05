@@ -16,7 +16,7 @@ class WebToPay_Util
      */
     public function decodeSafeUrlBase64($encodedText)
     {
-        return base64_decode(strtr($encodedText, array('-' => '+', '_' => '/')));
+        return base64_decode(strtr($encodedText, ['-' => '+', '_' => '/']));
     }
 
     /**
@@ -29,7 +29,7 @@ class WebToPay_Util
      */
     public function encodeSafeUrlBase64($text)
     {
-        return strtr(base64_encode($text), array('+' => '-', '/' => '_'));
+        return strtr(base64_encode($text), ['+' => '-', '/' => '_']);
     }
 
     /**
@@ -41,7 +41,7 @@ class WebToPay_Util
      */
     public function parseHttpQuery($query)
     {
-        $params = array();
+        $params = [];
         parse_str($query, $params);
         return $params;
     }

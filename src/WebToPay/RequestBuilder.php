@@ -93,7 +93,7 @@ class WebToPay_RequestBuilder
     protected function validateRequest($data, $specs)
     {
         foreach ($specs as $spec) {
-            list($name, $maxlen, $required, $regexp) = $spec;
+            [$name, $maxlen, $required, $regexp] = $spec;
             if ($required && !isset($data[$name])) {
                 throw new WebToPay_Exception_Validation(
                     sprintf("'%s' is required but missing.", $name),
@@ -136,28 +136,28 @@ class WebToPay_RequestBuilder
      */
     protected static function getRequestSpec()
     {
-        return array(
-            array('orderid', 40, true, ''),
-            array('accepturl', 255, true, ''),
-            array('cancelurl', 255, true, ''),
-            array('callbackurl', 255, true, ''),
-            array('lang', 3, false, '/^[a-z]{3}$/i'),
-            array('amount', 11, false, '/^\d+$/'),
-            array('currency', 3, false, '/^[a-z]{3}$/i'),
-            array('payment', 20, false, ''),
-            array('country', 2, false, '/^[a-z_]{2}$/i'),
-            array('paytext', 255, false, ''),
-            array('p_firstname', 255, false, ''),
-            array('p_lastname', 255, false, ''),
-            array('p_email', 255, false, ''),
-            array('p_street', 255, false, ''),
-            array('p_city', 255, false, ''),
-            array('p_state', 20, false, ''),
-            array('p_zip', 20, false, ''),
-            array('p_countrycode', 2, false, '/^[a-z]{2}$/i'),
-            array('test', 1, false, '/^[01]$/'),
-            array('time_limit', 19, false, '/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/'),
-        );
+        return [
+            ['orderid', 40, true, ''],
+            ['accepturl', 255, true, ''],
+            ['cancelurl', 255, true, ''],
+            ['callbackurl', 255, true, ''],
+            ['lang', 3, false, '/^[a-z]{3}$/i'],
+            ['amount', 11, false, '/^\d+$/'],
+            ['currency', 3, false, '/^[a-z]{3}$/i'],
+            ['payment', 20, false, ''],
+            ['country', 2, false, '/^[a-z_]{2}$/i'],
+            ['paytext', 255, false, ''],
+            ['p_firstname', 255, false, ''],
+            ['p_lastname', 255, false, ''],
+            ['p_email', 255, false, ''],
+            ['p_street', 255, false, ''],
+            ['p_city', 255, false, ''],
+            ['p_state', 20, false, ''],
+            ['p_zip', 20, false, ''],
+            ['p_countrycode', 2, false, '/^[a-z]{2}$/i'],
+            ['test', 1, false, '/^[01]$/'],
+            ['time_limit', 19, false, '/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/'],
+        ];
     }
 
     /**
@@ -170,10 +170,10 @@ class WebToPay_RequestBuilder
     protected function createRequest(array $request)
     {
         $data = $this->util->encodeSafeUrlBase64(http_build_query($request, null, '&'));
-        return array(
+        return [
             'data' => $data,
             'sign' => md5($data . $this->projectPassword),
-        );
+        ];
     }
 
     /**

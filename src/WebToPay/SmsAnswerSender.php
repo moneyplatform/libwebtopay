@@ -50,11 +50,11 @@ class WebToPay_SmsAnswerSender
      */
     public function sendAnswer($smsId, $text)
     {
-        $content = $this->webClient->get($this->urlBuilder->buildForSmsAnswer(), array(
+        $content = $this->webClient->get($this->urlBuilder->buildForSmsAnswer(), [
             'id' => $smsId,
             'msg' => $text,
             'transaction' => md5($this->password . '|' . $smsId),
-        ));
+        ]);
         if (strpos($content, 'OK') !== 0) {
             throw new WebToPayException(
                 sprintf('Error: %s', $content),

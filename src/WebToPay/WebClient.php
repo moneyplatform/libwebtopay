@@ -17,7 +17,7 @@ class WebToPay_WebClient
      *
      * @throws WebToPayException
      */
-    public function get($uri, array $queryData = array())
+    public function get($uri, array $queryData = [])
     {
         if (count($queryData) > 0) {
             $uri .= strpos($uri, '?') === false ? '?' : '&';
@@ -53,7 +53,7 @@ class WebToPay_WebClient
         while (!feof($fp)) $content .= fgets($fp, 8192);
         fclose($fp);
 
-        list($header, $content) = explode("\r\n\r\n", $content, 2);
+        [$header, $content] = explode("\r\n\r\n", $content, 2);
 
         return trim($content);
     }

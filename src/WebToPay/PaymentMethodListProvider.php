@@ -22,7 +22,7 @@ class WebToPay_PaymentMethodListProvider
      *
      * @var WebToPay_PaymentMethodList[]
      */
-    protected $methodListCache = array();
+    protected $methodListCache = [];
 
     /**
      * Builds various request URLs

@@ -21,10 +21,10 @@ class WebToPay_FactoryTest extends PHPUnit\Framework\TestCase
      */
     public function setUp(): void
     {
-        $this->factory = new WebToPay_Factory(array(
+        $this->factory = new WebToPay_Factory([
             'projectId' => '123',
             'password' => 'abc',
-        ));
+        ]);
         $this->factoryWithoutConfiguration = new WebToPay_Factory();
     }
 

@@ -43,7 +43,7 @@ class WebToPay_PaymentMethodCountry
         $this->countryCode = $countryCode;
         $this->defaultLanguage = $defaultLanguage;
         $this->titleTranslations = $titleTranslations;
-        $this->groups = array();
+        $this->groups = [];
     }
 
     /**
@@ -121,7 +121,7 @@ class WebToPay_PaymentMethodCountry
      */
     public function getPaymentMethods()
     {
-        $paymentMethods = array();
+        $paymentMethods = [];
         foreach ($this->groups as $group) {
             $paymentMethods = array_merge($paymentMethods, $group->getPaymentMethods());
         }
@@ -210,7 +210,7 @@ class WebToPay_PaymentMethodCountry
     {
         foreach ($countryNode->payment_group as $groupNode) {
             $key = (string)$groupNode->attributes()->key;
-            $titleTranslations = array();
+            $titleTranslations = [];
             foreach ($groupNode->title as $titleNode) {
                 $titleTranslations[(string)$titleNode->attributes()->language] = (string)$titleNode;
             }
@@ -226,7 +226,7 @@ class WebToPay_PaymentMethodCountry
      *
      * @return WebToPay_PaymentMethodGroup
      */
-    protected function createGroup($groupKey, array $translations = array())
+    protected function createGroup($groupKey, array $translations = [])
     {
         return new WebToPay_PaymentMethodGroup($groupKey, $translations, $this->defaultLanguage);
     }

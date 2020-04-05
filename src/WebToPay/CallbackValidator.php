@@ -74,7 +74,7 @@ class WebToPay_CallbackValidator
             );
         }
 
-        if (!isset($request['type']) || !in_array($request['type'], array('micro', 'macro'))) {
+        if (!isset($request['type']) || !in_array($request['type'], ['micro', 'macro'])) {
             $micro = (
                 isset($request['to'])
                 && isset($request['from'])

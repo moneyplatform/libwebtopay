@@ -14,7 +14,7 @@ class WebToPay_UrlBuilder
     /**
      * @var array
      */
-    protected $configuration = array();
+    protected $configuration = [];
 
     /**
      * @var string

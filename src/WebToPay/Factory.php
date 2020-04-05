@@ -12,22 +12,22 @@ class WebToPay_Factory
     /**
      * @var array
      */
-    protected static $defaultConfiguration = array(
-        'routes' => array(
-            self::ENV_PRODUCTION => array(
+    protected static $defaultConfiguration = [
+        'routes' => [
+            self::ENV_PRODUCTION => [
                 'publicKey' => 'http://www.paysera.com/download/public.key',
                 'payment' => 'https://bank.paysera.com/pay/',
                 'paymentMethodList' => 'https://www.paysera.com/new/api/paymentMethods/',
                 'smsAnswer' => 'https://bank.paysera.com/psms/respond/',
-            ),
-            self::ENV_SANDBOX => array(
+            ],
+            self::ENV_SANDBOX => [
                 'publicKey' => 'http://sandbox.paysera.com/download/public.key',
                 'payment' => 'https://sandbox.paysera.com/pay/',
                 'paymentMethodList' => 'https://sandbox.paysera.com/new/api/paymentMethods/',
                 'smsAnswer' => 'https://sandbox.paysera.com/psms/respond/',
-            ),
-        )
-    );
+            ],
+        ],
+    ];
 
     /**
      * @var string
@@ -88,7 +88,7 @@ class WebToPay_Factory
      *
      * @param array $configuration
      */
-    public function __construct(array $configuration = array())
+    public function __construct(array $configuration = [])
     {
 
         $this->configuration = array_merge(self::$defaultConfiguration, $configuration);

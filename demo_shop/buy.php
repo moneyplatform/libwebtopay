@@ -9,8 +9,8 @@ if (!isset($shopItems[$id])) {
 }
 $item = $shopItems[$id];
 
-echo template('buy.html', array(
+echo template('buy.html', [
     'item' => $item,
     'id' => $id,
-));
+]);
 

@@ -57,7 +57,7 @@ class WebToPay_PaymentMethod
      * @param string $baseCurrency
      */
     public function __construct(
-        $key, $minAmount, $maxAmount, $currency, array $logoList = array(), array $titleTranslations = array(),
+        $key, $minAmount, $maxAmount, $currency, array $logoList = [], array $titleTranslations = [],
         $defaultLanguage = 'lt', $isIban = false, $baseCurrency = null
     )
     {

@@ -52,7 +52,7 @@ function load_data()
     if (is_file($file)) {
         return include $file;
     } else {
-        return array();
+        return [];
     }
 }
 

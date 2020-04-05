@@ -21,14 +21,14 @@ class WebToPayTest extends PHPUnit\Framework\TestCase
      */
     public function testBuildRequestWithoutProjectId()
     {
-        WebToPay::buildRequest(array(
+        WebToPay::buildRequest([
             'orderid' => '123',
             'accepturl' => 'http://local.test/accept',
             'cancelurl' => 'http://local.test/cancel',
             'callbackurl' => 'http://local.test/callback',
 
             'sign_password' => 'asdfghjkl',
-        ));
+        ]);
     }
 
     /**
@@ -38,10 +38,10 @@ class WebToPayTest extends PHPUnit\Framework\TestCase
      */
     public function testBuildRepeatRequestWithoutProjectId()
     {
-        WebToPay::buildRepeatRequest(array(
+        WebToPay::buildRepeatRequest([
             'sign_password' => 'asdfghjkl',
             'projectid' => '123',
-        ));
+        ]);
     }
 }
 

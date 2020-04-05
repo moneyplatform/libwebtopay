@@ -25,7 +25,7 @@ class WebToPay_RequestBuilderTest extends PHPUnit\Framework\TestCase
      */
     public function setUp(): void
     {
-        $this->util = $this->getMock('WebToPay_Util', array('encodeSafeUrlBase64'));
+        $this->util = $this->getMock('WebToPay_Util', ['encodeSafeUrlBase64']);
         $this->urlBuilder = $this->getMockBuilder('WebToPay_UrlBuilder')
             ->disableOriginalConstructor()
             ->getMock();
@@ -40,11 +40,11 @@ class WebToPay_RequestBuilderTest extends PHPUnit\Framework\TestCase
      */
     public function testBuildRequestWithNoOrderId()
     {
-        $this->builder->buildRequest(array(
+        $this->builder->buildRequest([
             'accepturl' => 'http://local.test/',
             'cancelurl' => 'http://local.test/',
             'callbackurl' => 'http://local.test/',
-        ));
+        ]);
     }
 
     /**
@@ -54,13 +54,13 @@ class WebToPay_RequestBuilderTest extends PHPUnit\Framework\TestCase
      */
     public function testBuildRequestWithInvalidCurrency()
     {
-        $this->builder->buildRequest(array(
+        $this->builder->buildRequest([
             'orderid' => 123,
             'accepturl' => 'http://local.test/',
             'cancelurl' => 'http://local.test/',
             'callbackurl' => 'http://local.test/',
             'currency' => 'litai',
-        ));
+        ]);
     }
 
     /**
@@ -78,15 +78,15 @@ class WebToPay_RequestBuilderTest extends PHPUnit\Framework\TestCase
             )
             ->will($this->returnValue('encoded'));
         $this->assertEquals(
-            array('data' => 'encoded', 'sign' => md5('encodedsecret')),
-            $this->builder->buildRequest(array(
+            ['data' => 'encoded', 'sign' => md5('encodedsecret')],
+            $this->builder->buildRequest([
                 'orderid' => 123,
                 'accepturl' => 'http://local.test/',
                 'cancelurl' => 'http://local.test/',
                 'callbackurl' => 'http://local.test/',
                 'amount' => 100,
                 'some-other-parameter' => 'abc',
-            ))
+            ])
         );
     }
 
@@ -101,7 +101,7 @@ class WebToPay_RequestBuilderTest extends PHPUnit\Framework\TestCase
             ->with('orderid=123&version=1.6&projectid=123&repeat_request=1')
             ->will($this->returnValue('encoded'));
         $this->assertEquals(
-            array('data' => 'encoded', 'sign' => md5('encodedsecret')),
+            ['data' => 'encoded', 'sign' => md5('encodedsecret')],
             $this->builder->buildRepeatRequest(123)
         );
     }
