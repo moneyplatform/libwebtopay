@@ -75,7 +75,9 @@ WH/7s1IG3gHc08EcYjgZVeZrFKatRYXs8frLsnQPBeuZmQBFxBFUd8L+5vOZo7AP
      */
     public function setUp(): void
     {
-        $this->util = $this->getMock(Util::class, ['decodeSafeUrlBase64']);
+        $this->util = $this->getMockBuilder(Util::class)
+            ->onlyMethods(['encodeSafeUrlBase64', 'decodeSafeUrlBase64'])
+            ->getMock();
         $this->signChecker = new SS2SignChecker(self::$publicKey, $this->util);
     }
 

@@ -35,8 +35,11 @@ class CallbackValidatorTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->signer = $this->getMock(SignCheckerInterface::class);
-        $this->util = $this->getMock(Util::class, ['decodeSafeUrlBase64', 'parseHttpQuery']);
+        $this->signer = $this->getMockBuilder(SignCheckerInterface::class)
+            ->getMock();
+        $this->util = $this->getMockBuilder(Util::class)
+            ->onlyMethods(['decodeSafeUrlBase64', 'parseHttpQuery'])
+            ->getMock();
         $this->validator = new CallbackValidator(123, $this->signer, $this->util);
     }
 

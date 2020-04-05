@@ -34,7 +34,9 @@ class RequestBuilderTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->util = $this->getMock(Util::class, ['encodeSafeUrlBase64']);
+        $this->util = $this->getMockBuilder(Util::class)
+            ->onlyMethods(['encodeSafeUrlBase64'])
+            ->getMock();
         $this->urlBuilder = $this->getMockBuilder(UrlBuilder::class)
             ->disableOriginalConstructor()
             ->getMock();
