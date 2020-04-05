@@ -330,5 +330,3 @@ class WebToPay
         return $factory->getPaymentMethodListProvider()->getPaymentMethodList($currency);
     }
 }
-
-

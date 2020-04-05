@@ -52,4 +52,3 @@ class WebToPayTest extends TestCase
         ]);
     }
 }
-
