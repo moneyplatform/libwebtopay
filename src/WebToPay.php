@@ -23,6 +23,11 @@
  * @link       http://www.webtopay.com/
  */
 
+namespace WebToPay;
+
+
+use WebToPay\Exception\BaseException;
+use WebToPay\Exception\ValidationException;
 
 /**
  * Contains static methods for most used scenarios.
@@ -33,7 +38,12 @@ class WebToPay
     /**
      * WebToPay Library version.
      */
-    const VERSION = '1.6';
+    const VERSION = '1.7';
+
+    /**
+     * WebToPay Protocol version.
+     */
+    const PROTOCOL_VERSION = '1.6';
 
     /**
      * Server URL where all requests should go.
@@ -59,7 +69,7 @@ class WebToPay
      * Builds request data array.
      *
      * This method checks all given data and generates correct request data
-     * array or raises WebToPayException on failure.
+     * array or raises BaseException on failure.
      *
      * Possible keys:
      * https://developers.paysera.com/en/payments/current#integration-via-specification
@@ -68,19 +78,19 @@ class WebToPay
      *
      * @return array
      *
-     * @throws WebToPayException on data validation error
+     * @throws BaseException on data validation error
      */
     public static function buildRequest($data)
     {
         if (!isset($data['sign_password']) || !isset($data['projectid'])) {
-            throw new WebToPayException('sign_password or projectid is not provided');
+            throw new BaseException('sign_password or projectid is not provided');
         }
         $password = $data['sign_password'];
         $projectId = $data['projectid'];
         unset($data['sign_password']);
         unset($data['projectid']);
 
-        $factory = new WebToPay_Factory(['projectId' => $projectId, 'password' => $password]);
+        $factory = new Factory(['projectId' => $projectId, 'password' => $password]);
         $requestBuilder = $factory->getRequestBuilder();
         return $requestBuilder->buildRequest($data);
     }
@@ -95,19 +105,19 @@ class WebToPay
      * @param array $data Information about current payment request.
      * @param boolean $exit if true, exits after sending Location header; default false
      *
-     * @throws WebToPayException on data validation error
+     * @throws BaseException on data validation error
      */
     public static function redirectToPayment($data, $exit = false)
     {
         if (!isset($data['sign_password']) || !isset($data['projectid'])) {
-            throw new WebToPayException('sign_password or projectid is not provided');
+            throw new BaseException('sign_password or projectid is not provided');
         }
         $password = $data['sign_password'];
         $projectId = $data['projectid'];
         unset($data['sign_password']);
         unset($data['projectid']);
 
-        $factory = new WebToPay_Factory(['projectId' => $projectId, 'password' => $password]);
+        $factory = new Factory(['projectId' => $projectId, 'password' => $password]);
         $url = $factory->getRequestBuilder()
             ->buildRequestUrlFromData($data);
 
@@ -130,7 +140,7 @@ class WebToPay
      * Builds repeat request data array.
      *
      * This method checks all given data and generates correct request data
-     * array or raises WebToPayException on failure.
+     * array or raises BaseException on failure.
      *
      * Method accepts single parameter $data of array type. All possible array
      * keys are described here:
@@ -140,18 +150,18 @@ class WebToPay
      *
      * @return array
      *
-     * @throws WebToPayException on data validation error
+     * @throws BaseException on data validation error
      */
     public static function buildRepeatRequest($data)
     {
         if (!isset($data['sign_password']) || !isset($data['projectid']) || !isset($data['orderid'])) {
-            throw new WebToPayException('sign_password, projectid or orderid is not provided');
+            throw new BaseException('sign_password, projectid or orderid is not provided');
         }
         $password = $data['sign_password'];
         $projectId = $data['projectid'];
         $orderId = $data['orderid'];
 
-        $factory = new WebToPay_Factory(['projectId' => $projectId, 'password' => $password]);
+        $factory = new Factory(['projectId' => $projectId, 'password' => $password]);
         $requestBuilder = $factory->getRequestBuilder();
         return $requestBuilder->buildRepeatRequest($orderId);
     }
@@ -180,14 +190,14 @@ class WebToPay
      * makro: https://developers.paysera.com/en/payments/current#integration-via-specification
      * mikro: https://developers.paysera.com/en/sms-keywords/current#detailed-specification
      *
-     * If response is not correct, WebToPayException will be raised.
+     * If response is not correct, BaseException will be raised.
      *
      * @param array $query Response array
      * @param array $userData
      *
      * @return array
      *
-     * @throws WebToPayException
+     * @throws BaseException
      * @deprecated use validateAndParseData() and check status code yourself
      */
     public static function checkResponse($query, $userData = [])
@@ -199,7 +209,7 @@ class WebToPay
         try {
             $data = self::validateAndParseData($query, $projectId, $password);
             if ($data['type'] == 'macro' && $data['status'] != 1) {
-                throw new WebToPayException('Expected status code 1', WebToPayException::E_DEPRECATED_USAGE);
+                throw new BaseException('Expected status code 1', BaseException::E_DEPRECATED_USAGE);
             }
 
             if ($logFile) {
@@ -207,8 +217,8 @@ class WebToPay
             }
             return $data;
 
-        } catch (WebToPayException $exception) {
-            if ($logFile && $exception->getCode() != WebToPayException::E_DEPRECATED_USAGE) {
+        } catch (BaseException $exception) {
+            if ($logFile && $exception->getCode() != BaseException::E_DEPRECATED_USAGE) {
                 self::log('ERR', $exception . "\nQuery: " . http_build_query($query, null, '&'), $logFile);
             }
             throw $exception;
@@ -224,14 +234,14 @@ class WebToPay
      *
      * @return array
      *
-     * @throws WebToPayException
+     * @throws BaseException
      */
     public static function validateAndParseData(array $query, $projectId, $password)
     {
-        $factory = new WebToPay_Factory(['projectId' => $projectId, 'password' => $password]);
+        $factory = new Factory(['projectId' => $projectId, 'password' => $password]);
         $validator = $factory->getCallbackValidator();
-        $data = $validator->validateAndParseData($query);
-        return $data;
+
+        return $validator->validateAndParseData($query);
     }
 
     /**
@@ -272,13 +282,13 @@ class WebToPay
      *
      * @param array $userData
      *
-     * @throws WebToPayException
-     * @throws WebToPay_Exception_Validation
+     * @throws BaseException
+     * @throws ValidationException
      */
     public static function smsAnswer($userData)
     {
         if (!isset($userData['id']) || !isset($userData['msg']) || !isset($userData['sign_password'])) {
-            throw new WebToPay_Exception_Validation('id, msg and sign_password are required');
+            throw new ValidationException('id, msg and sign_password are required');
         }
 
         $smsId = $userData['id'];
@@ -288,14 +298,14 @@ class WebToPay
 
         try {
 
-            $factory = new WebToPay_Factory(['password' => $password]);
+            $factory = new Factory(['password' => $password]);
             $factory->getSmsAnswerSender()->sendAnswer($smsId, $text);
 
             if ($logFile) {
                 self::log('OK', 'SMS ANSWER ' . $smsId . ' ' . $text, $logFile);
             }
 
-        } catch (WebToPayException $e) {
+        } catch (BaseException $e) {
             if ($logFile) {
                 self::log('ERR', 'SMS ANSWER ' . $e, $logFile);
             }
@@ -310,15 +320,13 @@ class WebToPay
      * @param integer $projectId
      * @param string $currency
      *
-     * @return WebToPay_PaymentMethodList
+     * @return PaymentMethodList
      *
-     * @throws WebToPayException
+     * @throws BaseException
      */
     public static function getPaymentMethodList($projectId, $currency = 'EUR')
     {
-        $factory = new WebToPay_Factory(['projectId' => $projectId]);
+        $factory = new Factory(['projectId' => $projectId]);
         return $factory->getPaymentMethodListProvider()->getPaymentMethodList($currency);
     }
 }
-
-
