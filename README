@@ -3,34 +3,29 @@ This is WebToPay library package.
 Requirements
 ============
 
-You must have PHP version 5.0 or higher
+You must have PHP version 7.1 or higher
 
 
 Installing
 ==========
 
-Easiest way to use library is to include merged all-in-one file.
-It is located in base libwebtopay directory, "WebToPay.php".
-In this case you only need this one file.
-Example:
-    <?php
+1. Add to composer.json
+ "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/moneyplatform/libwebtopay.git"
+        }
+    ]
 
-    require_once('WebToPay.php');
+    and
+    "require": {
+        ...
+            "webtopay/libwebtopay": "^1.7"
+     }
 
-    // Your code goes here
-    
-    ?>
+2. Install package
+    $ composer update
 
-Alternatively, you can use files in the "src" folder.
-Either set-up autoloader or include file "includes.php" in "src" directory.
-Example:
-    <?php
-
-    require_once('libwebtopay/src/includes.php');
-
-    // Your code goes here
-    
-    ?>
 
 Testing
 =======
