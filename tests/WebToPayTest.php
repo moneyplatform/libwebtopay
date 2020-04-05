@@ -3,9 +3,11 @@
 /**
  * Test for class WebToPay
  */
-class WebToPayTest extends PHPUnit_Framework_TestCase {
+class WebToPayTest extends PHPUnit\Framework\TestCase
+{
 
-    public function testGetPaymentUrl() {
+    public function testGetPaymentUrl()
+    {
         $url = WebToPay::getPaymentUrl('LIT');
         $this->assertEquals($url, WebToPay::PAY_URL);
         $url = WebToPay::getPaymentUrl('ENG');
@@ -17,15 +19,16 @@ class WebToPayTest extends PHPUnit_Framework_TestCase {
      *
      * @expectedException WebToPayException
      */
-    public function testBuildRequestWithoutProjectId() {
-        WebToPay::buildRequest(array(
+    public function testBuildRequestWithoutProjectId()
+    {
+        WebToPay::buildRequest([
             'orderid' => '123',
             'accepturl' => 'http://local.test/accept',
             'cancelurl' => 'http://local.test/cancel',
             'callbackurl' => 'http://local.test/callback',
 
             'sign_password' => 'asdfghjkl',
-        ));
+        ]);
     }
 
     /**
@@ -33,11 +36,12 @@ class WebToPayTest extends PHPUnit_Framework_TestCase {
      *
      * @expectedException WebToPayException
      */
-    public function testBuildRepeatRequestWithoutProjectId() {
-        WebToPay::buildRepeatRequest(array(
+    public function testBuildRepeatRequestWithoutProjectId()
+    {
+        WebToPay::buildRepeatRequest([
             'sign_password' => 'asdfghjkl',
             'projectid' => '123',
-        ));
+        ]);
     }
 }
 

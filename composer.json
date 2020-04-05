@@ -6,8 +6,20 @@
         {
             "name": "Paysera",
             "homepage": "https://www.paysera.com/"
+        },
+        {
+            "name": "Moneyplatform",
+            "homepage": "https://github.com/moneyplatform"
         }
     ],
+    "require": {
+        "php": "^7.1",
+        "ext-openssl": "*"
+    },
+    "require-dev": {
+        "ext-xdebug": "*",
+        "phpunit/phpunit": "^5.0"
+    },
     "autoload": {
         "classmap": ["src/"]
     }

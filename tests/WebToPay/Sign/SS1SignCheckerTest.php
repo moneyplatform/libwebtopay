@@ -3,7 +3,8 @@
 /**
  * Test for class WebToPay_Sign_SS1SignChecker
  */
-class WebToPay_Sign_SS1SignCheckerTest extends PHPUnit_Framework_TestCase {
+class WebToPay_Sign_SS1SignCheckerTest extends PHPUnit\Framework\TestCase
+{
 
     /**
      * @var WebToPay_Sign_SS1SignChecker
@@ -13,7 +14,8 @@ class WebToPay_Sign_SS1SignCheckerTest extends PHPUnit_Framework_TestCase {
     /**
      * Sets up this test
      */
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->signChecker = new WebToPay_Sign_SS1SignChecker('secret');
     }
 
@@ -22,27 +24,29 @@ class WebToPay_Sign_SS1SignCheckerTest extends PHPUnit_Framework_TestCase {
      *
      * @expectedException WebToPay_Exception_Callback
      */
-    public function testCheckSignWithoutInformation() {
-        $this->signChecker->checkSign(array(
+    public function testCheckSignWithoutInformation()
+    {
+        $this->signChecker->checkSign([
             'projectid' => '123',
             'ss1' => 'asd',
             'ss2' => 'zxc',
-        ));
+        ]);
     }
 
     /**
      * Tests checkSign
      */
-    public function testCheckSign() {
-        $this->assertTrue($this->signChecker->checkSign(array(
+    public function testCheckSign()
+    {
+        $this->assertTrue($this->signChecker->checkSign([
             'data' => 'encodedData',
             'ss1' => md5('encodedDatasecret'),
             'ss2' => 'bad-ss2',
-        )));
-        $this->assertFalse($this->signChecker->checkSign(array(
+        ]));
+        $this->assertFalse($this->signChecker->checkSign([
             'data' => 'encodedData',
             'ss1' => md5('encodedDatasecret1'),
             'ss2' => 'bad-ss2',
-        )));
+        ]));
     }
 }

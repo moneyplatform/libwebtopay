@@ -3,10 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>libwebtopay demo</title>
-    <meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8"/>
     <link href="style.css" rel="stylesheet" type="text/css"></link>
 </head>
 <body>
-    <?php echo $content; ?>
+<?php echo $content; ?>
 </body>
 </html>

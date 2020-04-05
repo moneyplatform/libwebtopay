@@ -4,7 +4,8 @@
  * Loads data about payment methods and constructs payment method list object from that data
  * You need SimpleXML support to use this feature
  */
-class WebToPay_PaymentMethodListProvider {
+class WebToPay_PaymentMethodListProvider
+{
 
     /**
      * @var integer
@@ -21,7 +22,7 @@ class WebToPay_PaymentMethodListProvider {
      *
      * @var WebToPay_PaymentMethodList[]
      */
-    protected $methodListCache = array();
+    protected $methodListCache = [];
 
     /**
      * Builds various request URLs
@@ -33,7 +34,7 @@ class WebToPay_PaymentMethodListProvider {
     /**
      * Constructs object
      *
-     * @param integer            $projectId
+     * @param integer $projectId
      * @param WebToPay_WebClient $webClient
      * @param WebToPay_UrlBuilder $urlBuilder
      *
@@ -63,7 +64,8 @@ class WebToPay_PaymentMethodListProvider {
      *
      * @throws WebToPayException
      */
-    public function getPaymentMethodList($currency) {
+    public function getPaymentMethodList($currency)
+    {
         if (!isset($this->methodListCache[$currency])) {
             $xmlAsString = $this->webClient->get($this->urlBuilder->buildForPaymentsMethodList($this->projectId, $currency));
             $useInternalErrors = libxml_use_internal_errors(false);

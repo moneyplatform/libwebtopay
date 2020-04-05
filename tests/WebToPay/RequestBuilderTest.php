@@ -3,7 +3,8 @@
 /**
  * Test for class WebToPay_RequestBuilder
  */
-class WebToPay_RequestBuilderTest extends PHPUnit_Framework_TestCase {
+class WebToPay_RequestBuilderTest extends PHPUnit\Framework\TestCase
+{
     /**
      * @var WebToPay_UrlBuilder
      */
@@ -22,8 +23,9 @@ class WebToPay_RequestBuilderTest extends PHPUnit_Framework_TestCase {
     /**
      * Sets up this test
      */
-    public function setUp() {
-        $this->util = $this->getMock('WebToPay_Util', array('encodeSafeUrlBase64'));
+    public function setUp(): void
+    {
+        $this->util = $this->getMock('WebToPay_Util', ['encodeSafeUrlBase64']);
         $this->urlBuilder = $this->getMockBuilder('WebToPay_UrlBuilder')
             ->disableOriginalConstructor()
             ->getMock();
@@ -36,12 +38,13 @@ class WebToPay_RequestBuilderTest extends PHPUnit_Framework_TestCase {
      *
      * @expectedException WebToPay_Exception_Validation
      */
-    public function testBuildRequestWithNoOrderId() {
-        $this->builder->buildRequest(array(
+    public function testBuildRequestWithNoOrderId()
+    {
+        $this->builder->buildRequest([
             'accepturl' => 'http://local.test/',
             'cancelurl' => 'http://local.test/',
             'callbackurl' => 'http://local.test/',
-        ));
+        ]);
     }
 
     /**
@@ -49,53 +52,56 @@ class WebToPay_RequestBuilderTest extends PHPUnit_Framework_TestCase {
      *
      * @expectedException WebToPay_Exception_Validation
      */
-    public function testBuildRequestWithInvalidCurrency() {
-        $this->builder->buildRequest(array(
+    public function testBuildRequestWithInvalidCurrency()
+    {
+        $this->builder->buildRequest([
             'orderid' => 123,
             'accepturl' => 'http://local.test/',
             'cancelurl' => 'http://local.test/',
             'callbackurl' => 'http://local.test/',
             'currency' => 'litai',
-        ));
+        ]);
     }
 
     /**
      * Tests buildRequest method
      */
-    public function testBuildRequest() {
+    public function testBuildRequest()
+    {
         $this->util
             ->expects($this->once())
             ->method('encodeSafeUrlBase64')
             ->with(
                 'orderid=123&accepturl=http%3A%2F%2Flocal.test%2F&cancelurl=http%3A%2F%2Flocal.test%2F'
-                    . '&callbackurl=http%3A%2F%2Flocal.test%2F&amount=100&some-other-parameter=abc'
-                    . '&version=1.6&projectid=123'
+                . '&callbackurl=http%3A%2F%2Flocal.test%2F&amount=100&some-other-parameter=abc'
+                . '&version=1.6&projectid=123'
             )
             ->will($this->returnValue('encoded'));
         $this->assertEquals(
-            array('data' => 'encoded', 'sign' => md5('encodedsecret')),
-            $this->builder->buildRequest(array(
+            ['data' => 'encoded', 'sign' => md5('encodedsecret')],
+            $this->builder->buildRequest([
                 'orderid' => 123,
                 'accepturl' => 'http://local.test/',
                 'cancelurl' => 'http://local.test/',
                 'callbackurl' => 'http://local.test/',
                 'amount' => 100,
                 'some-other-parameter' => 'abc',
-            ))
+            ])
         );
     }
 
     /**
      * Tests buildRepeatRequest method
      */
-    public function testBuildRepeatRequest() {
+    public function testBuildRepeatRequest()
+    {
         $this->util
             ->expects($this->once())
             ->method('encodeSafeUrlBase64')
             ->with('orderid=123&version=1.6&projectid=123&repeat_request=1')
             ->will($this->returnValue('encoded'));
         $this->assertEquals(
-            array('data' => 'encoded', 'sign' => md5('encodedsecret')),
+            ['data' => 'encoded', 'sign' => md5('encodedsecret')],
             $this->builder->buildRepeatRequest(123)
         );
     }

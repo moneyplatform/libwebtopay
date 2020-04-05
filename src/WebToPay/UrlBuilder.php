@@ -6,14 +6,15 @@
  *
  * Class WebToPay_UrlBuilder
  */
-class WebToPay_UrlBuilder {
+class WebToPay_UrlBuilder
+{
 
     const PLACEHOLDER_KEY = '[domain]';
 
     /**
      * @var array
      */
-    protected $configuration = array();
+    protected $configuration = [];
 
     /**
      * @var string
@@ -43,40 +44,9 @@ class WebToPay_UrlBuilder {
      * @param null $language
      * @return string
      */
-    public function buildForRequest($request, $language = null) {
+    public function buildForRequest($request, $language = null)
+    {
         return $this->createUrlFromRequestAndLanguage($request);
-    }
-
-    /**
-     * Builds a complete URL for payment list API
-     *
-     * @param int $projectId
-     * @param string $currency
-     * @return string
-     */
-    public function buildForPaymentsMethodList($projectId, $currency) {
-        $route = $this->environmentSettings['paymentMethodList'];
-        return $route . $projectId . '/currency:' . $currency;
-    }
-
-    /**
-     * Builds a complete URL for Sms Answer
-     *
-     * @return string
-     */
-    public function buildForSmsAnswer() {
-        $route = $this->environmentSettings['smsAnswer'];
-        return $route;
-    }
-
-    /**
-     * Build the url to the public key
-     *
-     * @return string
-     */
-    public function buildForPublicKey() {
-        $route = $this->environmentSettings['publicKey'];
-        return $route;
     }
 
     /**
@@ -85,7 +55,8 @@ class WebToPay_UrlBuilder {
      * @param array $request
      * @return string
      */
-    protected function createUrlFromRequestAndLanguage($request) {
+    protected function createUrlFromRequestAndLanguage($request)
+    {
         $url = $this->getPaymentUrl() . '?' . http_build_query($request, null, '&');
         return preg_replace('/[\r\n]+/is', '', $url);
     }
@@ -95,8 +66,44 @@ class WebToPay_UrlBuilder {
      *
      * @return string $url
      */
-    public function getPaymentUrl() {
+    public function getPaymentUrl()
+    {
         $route = $this->environmentSettings['payment'];
+        return $route;
+    }
+
+    /**
+     * Builds a complete URL for payment list API
+     *
+     * @param int $projectId
+     * @param string $currency
+     * @return string
+     */
+    public function buildForPaymentsMethodList($projectId, $currency)
+    {
+        $route = $this->environmentSettings['paymentMethodList'];
+        return $route . $projectId . '/currency:' . $currency;
+    }
+
+    /**
+     * Builds a complete URL for Sms Answer
+     *
+     * @return string
+     */
+    public function buildForSmsAnswer()
+    {
+        $route = $this->environmentSettings['smsAnswer'];
+        return $route;
+    }
+
+    /**
+     * Build the url to the public key
+     *
+     * @return string
+     */
+    public function buildForPublicKey()
+    {
+        $route = $this->environmentSettings['publicKey'];
         return $route;
     }
 }

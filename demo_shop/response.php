@@ -4,12 +4,11 @@ require_once 'includes/helpers.php';
 require_once 'includes/config.php';
 require_once '../src/includes.php';
 
-$get = removeQuotes($_GET);
-$answer = isset($get['answer']) ? $get['answer'] : 'cancel';
+$answer = isset($_GET['answer']) ? $_GET['answer'] : 'cancel';
 
 if ('callback' == $answer) {
     try {
-        $response = WebToPay::validateAndParseData($get, $config['projectid'], $config['sign_password']);
+        $response = WebToPay::validateAndParseData($_GET, $config['projectid'], $config['sign_password']);
         $orderId = isset($response['orderid']) ? $response['orderid'] : null;
 
         $data = load_data();
@@ -48,7 +47,7 @@ if ('callback' == $answer) {
     }
 } else if ('accept' == $answer) {
     try {
-        $response = WebToPay::validateAndParseData($get, $config['projectid'], $config['sign_password']);
+        $response = WebToPay::validateAndParseData($_GET, $config['projectid'], $config['sign_password']);
         if ($response['status'] == 1 || $response['status'] == 2) {
             // You can start providing services when you get confirmation with accept url
             // Be sure to check if this order is not yet confirmed - user can refresh page anytime

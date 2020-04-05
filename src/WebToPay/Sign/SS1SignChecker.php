@@ -3,7 +3,8 @@
 /**
  * Sign checker which checks SS1 signature. SS1 does not depend on SSL functions
  */
-class WebToPay_Sign_SS1SignChecker implements WebToPay_Sign_SignCheckerInterface {
+class WebToPay_Sign_SS1SignChecker implements WebToPay_Sign_SignCheckerInterface
+{
 
     /**
      * @var string
@@ -15,7 +16,8 @@ class WebToPay_Sign_SS1SignChecker implements WebToPay_Sign_SignCheckerInterface
      *
      * @param string $projectPassword
      */
-    public function __construct($projectPassword) {
+    public function __construct($projectPassword)
+    {
         $this->projectPassword = $projectPassword;
     }
 
@@ -28,7 +30,8 @@ class WebToPay_Sign_SS1SignChecker implements WebToPay_Sign_SignCheckerInterface
      *
      * @throws WebToPay_Exception_Callback
      */
-    public function checkSign(array $request) {
+    public function checkSign(array $request)
+    {
         if (!isset($request['data']) || !isset($request['ss1'])) {
             throw new WebToPay_Exception_Callback('Not enough parameters in callback. Possible version mismatch');
         }

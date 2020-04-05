@@ -5,7 +5,7 @@ require_once 'includes/config.php';
 
 $data = load_data();
 
-echo template('orders.html', array(
-    'orders' => isset($data['orders']) ? $data['orders'] : array(),
-    'sms' => isset($data['sms']) ? $data['sms'] : array()
-));
+echo template('orders.html', [
+    'orders' => isset($data['orders']) ? $data['orders'] : [],
+    'sms' => isset($data['sms']) ? $data['sms'] : [],
+]);
